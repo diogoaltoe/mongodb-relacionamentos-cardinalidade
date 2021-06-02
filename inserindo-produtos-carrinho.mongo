@@ -1,0 +1,35 @@
+// Criar carrinho de produtos
+db.clientes.updateMany({}, {
+    $set: {
+        carrinho: {
+            produtos: []
+        }
+    }
+})
+
+// Pegar um produto para colocar no carrinho 
+var produto = db.produtos.findOneAndUpdate({
+    modelo: "iPhone 11",
+    quantidade: {
+        $gt: 0
+    }
+}, {
+    $inc: {
+        quantidade: -1
+    }
+}, {
+    projection: {
+        marca: 1,
+        modelo: 1,
+        preco: 1
+    }
+})
+
+// Inserir o produto no carrinho de um cliente
+db.clientes.update({
+    nome: "Ricardo"
+}, {
+    $push: {
+        "carrinho.produtos": produto
+    }
+})
