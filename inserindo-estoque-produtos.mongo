@@ -1,0 +1,8 @@
+// Criando o estoque do produto
+db.produtos.update({
+    modelo: "iPhone 11"
+}, {
+    $set: {
+        quantidade: 7
+    }
+})
