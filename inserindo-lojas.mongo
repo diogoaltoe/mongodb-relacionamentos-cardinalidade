@@ -1,0 +1,5 @@
+// Inserindo a primeira loja
+db.lojas.insertOne({
+    nome: "Apple Store",
+    endereco: "Av. Roque Petroni Júnior, 1080"
+})
