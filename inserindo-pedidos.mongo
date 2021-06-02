@@ -1,0 +1,30 @@
+// Criando os pedidos
+db.clientes.aggregate([
+    {
+        $match: {
+            nome: "Ricardo"
+        }
+    }, {
+        $project: {
+            _id: 0,
+            id_cliente: "$_id",
+            endereco: "$endereco",
+            data: ISODate(),
+            produtos: "$carrinho.produtos",
+            valorTotal: {
+                $sum: "$carrinho.produtos.preco"
+            }
+        }
+    }, {
+        $merge: "pedidos"
+    }
+]).pretty()
+
+// Depois de gerar o pedido, vamos limpar carrinho do cliente
+db.clientes.update({
+    nome: "Ricardo"
+}, {
+    $set: {
+        "carrinho.produtos": []
+    }
+})
