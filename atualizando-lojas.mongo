@@ -32,3 +32,10 @@ db.lojas.update({
         produtos: [motog7._id, note10._id]
     }
 })
+
+// Como teremos que adicionar e remover um produto com frequência, vamos removendo o produto das lojas
+db.lojas.updateMany({}, {
+    $unset: {
+        produtos:1
+    }
+})
