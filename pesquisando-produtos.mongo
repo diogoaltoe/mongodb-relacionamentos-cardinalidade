@@ -29,3 +29,13 @@ db.produtos.aggregate([{
         as: "listaLojas"
     }
 }]).pretty();
+
+
+// Após remover os produtos das lojas, devemos procurar os produtos usando o find
+var appleStore = db.lojas.findOne({
+    nome: "Apple Store"
+})
+
+db.produtos.find({
+    vendido_em: appleStore._id
+}).pretty();
